@@ -1,8 +1,7 @@
 <launch>
     <!--    launch usb cam dependency -->
-<!--    <include file="$(find mjpeg_cam)/launch/mjpeg_cam_run.launch" />-->
     <node name="mjpeg_cam" pkg="mjpeg_cam" type="mjpeg_cam" output="screen" >
-        <param name="device_name" value="/dev/video2" />
+        <param name="device_name" value="/dev/video0" />
         <param name="width" value="640" />
         <param name="height" value="480" />
         <param name="framerate" value="30" />
@@ -10,7 +9,4 @@
         <param name="brightness" value="128" />
         <param name="autoexposure" value="false" />
     </node>
-    <node pkg="state_estimator" type="CompressedToImageRaw.py" name="image_conversion" />
-<!--    <node pkg="tf" type="static_transform_publisher" name="apriltag_cam_tf" args="-0.3075 -0.9038 3.6429 0.91674 0.046957 -0.09252 0.385756 usb_cam map 10000" />-->
-
 </launch>

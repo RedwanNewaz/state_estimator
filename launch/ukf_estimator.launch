@@ -1,9 +1,8 @@
 <launch>
-    <include file="$(find state_estimator)/launch/apriltag_detector.launch" />
+    <include file="$(find state_estimator)/launch/apriltag_detector_compressed.launch" />
     <node pkg="state_estimator" type="TagToNavMsg.py" name="tag_conversion" />
     <node pkg="robot_localization" type="ukf_localization_node" name="ukf_se" clear_params="true">
         <rosparam command="load" file="$(find state_estimator)/config/ukf.yaml" />
         <remap from="odometry/filtered" to="/robot/state"/>
     </node>
-    <node pkg="rviz" type="rviz" name="viz" args="-d /home/redwan/catkin_ws/src/state_estimator/config/robotTag.rviz" />
 </launch>
