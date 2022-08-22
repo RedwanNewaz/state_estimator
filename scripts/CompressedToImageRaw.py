@@ -38,12 +38,17 @@ class image_feature:
 
         self.camera_info_pub = rospy.Publisher("/mjpeg_cam/camera_info", CameraInfo, queue_size = 1)
 
+# - Translation: [0.207, 0.438, 2.152]
+# - Rotation: in Quaternion [0.843, -0.251, 0.244, 0.410]
+#             in RPY (radian) [2.336, -0.664, -0.287]
+#             in RPY (degree) [133.835, -38.035, -16.452]
+
 
 
     def handle_camera_pose(self, timestamp):
         # x: 2.3342775, y: -0.1338066, z: -0.1595741
-        self.br.sendTransform((-0.3075, -0.9038, 3.6429),
-                              ( 0.91674, 0.046957, -0.09252, 0.385756 ),
+        self.br.sendTransform((0.207, 0.438, 2.152),
+                              ( 0.843, -0.251, 0.244, 0.410 ),
                               timestamp,
                               "map",
                               "usb_cam"

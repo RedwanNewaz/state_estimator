@@ -20,7 +20,7 @@
         <param name="autoexposure" value="false" />
     </node>
     <node pkg="state_estimator" type="CompressedToImageRaw.py" name="image_conversion"/>
-
+    <node pkg="state_estimator" type="TagToNavMsg.py" name="usb_cam_tag_conversion" />
 
     <node pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="$(arg node_namespace)" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)" >
         <!-- Remap topics from those used in code to those on the ROS network -->

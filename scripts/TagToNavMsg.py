@@ -43,6 +43,8 @@ class TagToNavMsg:
     def callback(self, ros_data):
         '''Callback function of subscribed topic.
         Here images get converted and features detected'''
+        if ros_data.header.frame_id != "usb_cam":
+            return
         for tag in ros_data.detections:
             tag_id = tag.id[0]
             pose = tag.pose.pose.pose

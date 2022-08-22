@@ -6,7 +6,7 @@ The keyidea is to use mjpeg camera to get compressed images and then use aprilta
 
 clone and build this repo ```https://github.com/rsmohamad/mjpeg_cam```
 
-install this packages 
+install these packages 
 
 ```
 sudo apt install -y ros-noetic-apriltag-ros \
