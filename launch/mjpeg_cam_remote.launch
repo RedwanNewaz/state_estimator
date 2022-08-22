@@ -1,0 +1,5 @@
+<launch>
+    <!--    launch usb cam dependency -->
+    <node pkg="state_estimator" type="CompressedToImageRaw.py" name="image_conversion" output="screen"/>
+
+</launch>

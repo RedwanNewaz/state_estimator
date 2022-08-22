@@ -19,27 +19,24 @@ from sensor_msgs.msg import CompressedImage, Image, CameraInfo
 
 VERBOSE=False
 
-class image_feature:
+class mjpeg_camInfo:
 
     def __init__(self):
         '''Initialize ros publisher, ros subscriber'''
         # topic where we publish
-        self.image_pub = rospy.Publisher("/usb_cam/image_raw",
-                                         Image)
-        self.bridge = CvBridge()
         self.br = tf.TransformBroadcaster()
 
         # subscribed Topic
-        self.subscriber = rospy.Subscriber("/mjpeg_cam/image/compressed",
+        self.subscriber = rospy.Subscriber("/builtin_cam/image/compressed",
                                            CompressedImage, self.callback,  queue_size = 1)
         if VERBOSE :
-            rospy.loginfo("subscribed to /mjpeg_cam/image/compressed")
+            rospy.loginfo("subscribed to /builtin_cam/image/compressed")
 
         self.camera_calibration_path = '/home/redwan/.ros/camera_info/head_camera.yaml'
         self.camera_param_msg = self.build_camera_info(self.camera_calibration_path)
         rospy.loginfo(self.camera_param_msg)
 
-        self.camera_info_pub = rospy.Publisher("/usb_cam/camera_info", CameraInfo)
+        self.camera_info_pub = rospy.Publisher("/builtin_cam/camera_info", CameraInfo, queue_size = 1)
 
 
 
@@ -49,7 +46,7 @@ class image_feature:
                               ( 0.91674, 0.046957, -0.09252, 0.385756 ),
                               timestamp,
                               "map",
-                              "usb_cam"
+                              "builtin_cam"
                          )
 
 
@@ -63,6 +60,7 @@ class image_feature:
             calib_data = yaml.load(file_handle, Loader=yaml.SafeLoader)
         # Parse
         camera_info_msg = CameraInfo()
+        camera_info_msg.header.frame_id = "builtin_cam"
         camera_info_msg.width = calib_data["image_width"]
         camera_info_msg.height = calib_data["image_height"]
         camera_info_msg.K = calib_data["camera_matrix"]["data"]
@@ -80,28 +78,13 @@ class image_feature:
         if VERBOSE :
             rospy.loginfo('received image of type: "%s"' % ros_data.format)
 
-        #### direct conversion to CV2 ####
-        np_arr = np.fromstring(ros_data.data, np.uint8)
-        image_np = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-        #image_np = cv2.imdecode(np_arr, cv2.IMREAD_COLOR) # OpenCV >= 3.0:
-
-
-        # cv2.imshow('cv_img', image_np)
-        # cv2.waitKey(2)
-
-        #### Create CompressedIamge ####
-        msg = self.bridge.cv2_to_imgmsg(image_np, encoding="bgr8")
 
         # Publish new image
         timestamp = ros_data.header.stamp
-        msg.header.stamp = timestamp
-        msg.header.frame_id = "usb_cam"
-
-        self.image_pub.publish(msg)
 
         #self.subscriber.unregister()
         self.camera_param_msg.header.stamp = timestamp
-        self.camera_param_msg.header.frame_id = "usb_cam"
+        self.camera_param_msg.header.frame_id = "builtin_cam"
         self.camera_info_pub.publish(self.camera_param_msg)
 
         self.handle_camera_pose(timestamp)
@@ -110,7 +93,7 @@ def main(args):
     '''Initializes and cleanup ros node'''
     rospy.init_node('compressed_image_to_image_raw', anonymous=True, disable_signals=True)
     time.sleep(2)
-    ic = image_feature()
+    ic = mjpeg_camInfo()
     try:
         rospy.spin()
     except KeyboardInterrupt:

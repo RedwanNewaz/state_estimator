@@ -85,6 +85,19 @@ pose0_queue_size: 1
 pose0_rejection_threshold: 10  # Note the difference in parameter name
 pose0_nodelay: false
 
+
+pose1: /robot/builtin_cam/pose
+pose1_config: [true,  true,  false,
+               false, false, true,
+               true, true, false,
+               false, false, true,
+               true,  true, false]
+pose1_differential: false
+pose1_relative: false
+pose1_queue_size: 1
+pose1_rejection_threshold: 10  # Note the difference in parameter name
+pose1_nodelay: false
+
 # [ADVANCED]  The EKF and UKF models follow a standard predict/correct cycle. During prediction, if there is no
 # acceleration reference, the velocity at time t+1 is simply predicted to be the same as the velocity at time t. During
 # correction, this predicted value is fused with the measured value to produce the new velocity estimate. This can be

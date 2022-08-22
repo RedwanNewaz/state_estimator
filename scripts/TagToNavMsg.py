@@ -14,7 +14,7 @@ class TagToNavMsg:
         '''Initialize ros publisher, ros subscriber'''
         self.br = tf.TransformBroadcaster()
         # topic where we publish
-        self.nav_pub = rospy.Publisher("/robot/camera_pose",
+        self.nav_pub = rospy.Publisher("/robot/builtin_cam/pose",
                                        PoseWithCovarianceStamped, queue_size=1)
 
 
@@ -35,7 +35,7 @@ class TagToNavMsg:
 
         msg.pose.pose = pose
         msg.header.stamp = timestamp = rospy.Time.now()
-        msg.header.frame_id = "usb_cam"
+        msg.header.frame_id = "builtin_cam"
         # self.handle_robot_pose(pose, frame_id, timestamp)
         # msg.header. = 'robot'
         return msg
@@ -43,6 +43,8 @@ class TagToNavMsg:
     def callback(self, ros_data):
         '''Callback function of subscribed topic.
         Here images get converted and features detected'''
+        if ros_data.header.frame_id != "builtin_cam":
+            return
         for tag in ros_data.detections:
             tag_id = tag.id[0]
             pose = tag.pose.pose.pose
