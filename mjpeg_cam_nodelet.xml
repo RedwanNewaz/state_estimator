@@ -1,0 +1,7 @@
+<library path="lib/libmjpeg_cam_nodelet">
+    <class name="mjpeg_cam_nodelet" type="mjpeg_cam_nodelet::CompressedImage" base_class_type="nodelet::Nodelet">
+        <description>
+            A node to add a value and republish.
+        </description>
+    </class>
+</library>

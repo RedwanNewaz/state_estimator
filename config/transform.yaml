@@ -1,0 +1,4 @@
+static_transform:
+  child_frame: map
+  position: [-0.281, 1.563, 0.921] # xyz
+  orientation: [-0.108, 0.799, -0.581, 0.106 ] # quaternion

@@ -1,0 +1,16 @@
+<launch>
+    <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager"/>
+
+    <node pkg="nodelet" type="nodelet" name="CompressedImage" args="standalone mjpeg_cam_nodelet" output="screen">
+        <param name="device_name" value="/dev/video2" />
+        <param name="width" value="640" />
+        <param name="height" value="480" />
+        <param name="framerate" value="60" />
+        <param name="exposure" value="70" />
+        <param name="brightness" value="128" />
+        <param name="autoexposure" value="false" />
+        <param name="camera_frame_id" value="usb_cam" />
+        <rosparam command="load" file="$(find mjpeg_cam_nodelet)/config/head_camera.yaml" />
+        <rosparam command="load" file="$(find mjpeg_cam_nodelet)/config/transform.yaml" />
+    </node>
+</launch>
