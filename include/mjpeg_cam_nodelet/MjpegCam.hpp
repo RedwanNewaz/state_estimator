@@ -42,13 +42,24 @@ public:
     void setDynamicParams(int exposure, int brightness, bool autoexposure);
 
 
-    void timerCallback(const ros::TimerEvent& event);
 
-private:
+
+protected:
     /*!
      * Reads a single frame from the camera and publish to topic.
      */
     bool readAndPublishImage();
+
+
+    //! ROS node handle.
+    ros::NodeHandle &m_nodeHandle;
+
+    std::string m_camera_frame_id;
+    ros::Time m_img_pub_time;
+
+
+
+private:
 
     /*!
      * Reads ROS parameters.
@@ -56,32 +67,21 @@ private:
     void readParameters();
 
     /*!
-     * Read Camera parameter
-     */
-     void readCamInfo();
-
-    /*!
-    * Read Static transform
-    */
-    void readStaticTransform();
-
-    /*!
      * Set camera parameters
      */
     bool setCameraParams();
 
-    //! ROS node handle.
-    ros::NodeHandle &nodeHandle_;
+
 
     //! ROS Image Publisher
-    ros::Publisher imagePub_, camInfoPub_;
+    ros::Publisher imagePub_;
 
     //! Camera Object
     UsbCamera *cam;
     unsigned int sequence;
 
     // Parameters
-    std::string device_name, camera_frame_id;
+    std::string device_name;
     int width;
     int height;
     int framerate;
@@ -89,16 +89,7 @@ private:
     int brightness;
     bool autoexposure;
 
-    // camera info
-    ros::Time img_pub_time;
-    bool pub_camera_info;
-    sensor_msgs::CameraInfo cam_info_msg;
 
-    // transformation
-    bool pub_static_transform;
-    tf::Transform transform;
-    tf::TransformBroadcaster br;
-    std::string child_frame;
 
 };
 

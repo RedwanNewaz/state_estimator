@@ -9,7 +9,7 @@
         <param name="exposure" value="70" />
         <param name="brightness" value="128" />
         <param name="autoexposure" value="false" />
-        <param name="camera_frame_id" value="usb_cam" />
+        <param name="m_camera_frame_id" value="usb_cam" />
         <rosparam command="load" file="$(find mjpeg_cam_nodelet)/config/head_camera.yaml" />
         <rosparam command="load" file="$(find mjpeg_cam_nodelet)/config/transform.yaml" />
     </node>

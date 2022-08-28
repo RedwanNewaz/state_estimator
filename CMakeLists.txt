@@ -127,7 +127,7 @@ include_directories(
    src/MjpegCam.cpp
    src/UsbCamera.cpp
    src/mjpeg_cam_nodelet.cpp
- )
+         src/TagCam.cpp include/mjpeg_cam_nodelet/TagCam.h)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
