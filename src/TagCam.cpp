@@ -37,6 +37,8 @@ namespace mjpeg_cam {
         if (m_nodeHandle.ok() && !readAndPublishImage())
             ROS_WARN("Could not publish image");
 
+//        m_img_pub_time = ros::Time::now();
+
         if(pub_camera_info_)
         {
             cam_info_msg_.header.stamp = m_img_pub_time;

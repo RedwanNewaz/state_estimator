@@ -42,7 +42,8 @@ bool MjpegCam::readAndPublishImage()
         sensor_msgs::CompressedImage msg;
         msg.header.frame_id = m_camera_frame_id;
         msg.header.seq = sequence++;
-        msg.header.stamp = m_img_pub_time = ros::Time::now();
+        m_img_pub_time = ros::Time::now();
+        msg.header.stamp =m_img_pub_time;
         msg.format = "jpeg";
         msg.data.resize(length);
         std::copy(image, image + length, msg.data.begin());

@@ -1,8 +1,8 @@
 <launch>
     <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager"/>
 
-    <node pkg="nodelet" type="nodelet" name="CompressedImage" args="standalone mjpeg_cam_nodelet" output="screen">
-        <param name="device_name" value="/dev/video2" />
+    <node pkg="nodelet" type="nodelet" name="usb_cam" args="load mjpeg_cam_nodelet standalone_nodelet" output="screen">
+        <param name="device_name" value="/dev/video0" />
         <param name="width" value="640" />
         <param name="height" value="480" />
         <param name="framerate" value="60" />
