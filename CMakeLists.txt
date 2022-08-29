@@ -121,13 +121,16 @@ include_directories(
  include
   ${catkin_INCLUDE_DIRS}
 )
-
+set(SOURCE_FILES
+        src/MjpegCam.cpp
+        src/UsbCamera.cpp
+        src/mjpeg_cam_nodelet.cpp
+        src/TagCam.cpp
+        )
 ## Declare a C++ library
  add_library(${PROJECT_NAME}
-   src/MjpegCam.cpp
-   src/UsbCamera.cpp
-   src/mjpeg_cam_nodelet.cpp
-         src/TagCam.cpp include/mjpeg_cam_nodelet/TagCam.h)
+  ${SOURCE_FILES}
+   )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -137,7 +140,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME} src/mjpeg_cam_nodelet.cpp)
+ add_executable(mjpeg_cam_node src/mjpeg_cam_node.cpp ${SOURCE_FILES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -154,6 +157,9 @@ include_directories(
    ${catkin_LIBRARIES}
  )
 
+target_link_libraries(mjpeg_cam_node
+        ${catkin_LIBRARIES}
+        )
 #############
 ## Install ##
 #############
