@@ -124,12 +124,12 @@ include_directories(
 set(SOURCE_FILES
         src/MjpegCam.cpp
         src/UsbCamera.cpp
-        src/mjpeg_cam_nodelet.cpp
         src/TagCam.cpp
         )
 ## Declare a C++ library
  add_library(${PROJECT_NAME}
-  ${SOURCE_FILES}
+     src/mjpeg_cam_nodelet.cpp
+     ${SOURCE_FILES}
    )
 
 ## Add cmake target dependencies of the library
